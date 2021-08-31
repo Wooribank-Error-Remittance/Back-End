@@ -1,3 +1,9 @@
+wooribank:
+  appkey: l7xxHnS1sT2eRei15zN5HtED8hjCJT2cbZKX
+  appSecret: bJgtknpisCZ93KqU7qARZRZuyidObsh9
+  url:
+    wooribank-open-api: https://openapi.wooribank.com:444/oai/wb/v1
+
 spring:
   application:
     name: WER-api
