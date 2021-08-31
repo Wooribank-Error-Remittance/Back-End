@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.wooribank.backend.component.CommonResponseMaker;
 import com.wooribank.backend.constant.ResponseCode;
 import com.wooribank.backend.dto.CommonResponse;
+import com.wooribank.backend.dto.SignInRequestDto;
 import com.wooribank.backend.dto.SignUpRequestDto;
 import com.wooribank.backend.dto.WooriUserDto;
 import com.wooribank.backend.service.AccountService;
@@ -30,6 +31,14 @@ public class SignController extends AppApiV1Controller {
     public CommonResponse<WooriUserDto> completeSignUp(@RequestBody SignUpRequestDto requestDto) throws IOException {
 
         final WooriUserDto responseDto = WooriUserDto.of(userService.completeSignUp(requestDto.toVo()));
+
+        return commonResponseMaker.makeSucceedCommonResponse(responseDto);
+    }
+
+    @PostMapping("/sign/login")
+    public CommonResponse<WooriUserDto> signIn(@RequestBody SignInRequestDto requestDto) {
+
+        final WooriUserDto responseDto = WooriUserDto.of(userService.signIn(requestDto.toVo()));
 
         return commonResponseMaker.makeSucceedCommonResponse(responseDto);
     }
