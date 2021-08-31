@@ -1,7 +1,5 @@
 package com.wooribank.backend.dto;
 
-import com.wooribank.backend.dto.LoadAccountResponseDto.GRID;
-import com.wooribank.backend.vo.UpdateAllAccountRequestVo;
 import com.wooribank.backend.vo.UpdateAllAccountResponseVo;
 import lombok.Builder;
 import lombok.Getter;

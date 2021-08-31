@@ -1,7 +1,6 @@
 package com.wooribank.backend.dto;
 
 import com.wooribank.backend.vo.SignInRequestVo;
-import com.wooribank.backend.vo.SignUpRequestVo;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;

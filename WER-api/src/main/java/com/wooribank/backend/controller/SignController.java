@@ -1,13 +1,10 @@
 package com.wooribank.backend.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.wooribank.backend.component.CommonResponseMaker;
-import com.wooribank.backend.constant.ResponseCode;
 import com.wooribank.backend.dto.CommonResponse;
 import com.wooribank.backend.dto.SignInRequestDto;
 import com.wooribank.backend.dto.SignUpRequestDto;
 import com.wooribank.backend.dto.WooriUserDto;
-import com.wooribank.backend.service.AccountService;
 import com.wooribank.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
