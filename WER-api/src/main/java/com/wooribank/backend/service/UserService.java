@@ -4,6 +4,7 @@ import com.wooribank.backend.constant.ResponseCode;
 import com.wooribank.backend.domain.WooriUser;
 import com.wooribank.backend.exception.CommonException;
 import com.wooribank.backend.repository.WooriUserRepository;
+import com.wooribank.backend.vo.SignInRequestVo;
 import com.wooribank.backend.vo.SignUpRequestVo;
 import com.wooribank.backend.vo.WooriUserVo;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -37,6 +40,22 @@ public class UserService {
                 requestVo.getPhoneNumber());
 
         wooriUserRepository.save(wooriUser);
+
+        return wooriUser.toVo();
+    }
+
+    @Transactional(readOnly = true)
+    public WooriUserVo signIn(SignInRequestVo requestVo) {
+
+        final Optional<WooriUser> wooriUserOptional =
+                wooriUserRepository.findTopByUserId(requestVo.getUserId());
+
+        final WooriUser wooriUser =
+                wooriUserOptional.orElseThrow(() -> new CommonException(ResponseCode.USER_NOT_EXISTED));
+
+        if (!passwordEncoder.matches(requestVo.getPassword(), wooriUser.getPassword())) {
+            throw new CommonException(ResponseCode.INVALID_PASSWORD);
+        }
 
         return wooriUser.toVo();
     }
