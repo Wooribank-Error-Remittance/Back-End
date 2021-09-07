@@ -2,10 +2,7 @@ package com.wooribank.backend.domain;
 
 import com.wooribank.backend.vo.AccountVo;
 import com.wooribank.backend.vo.WooriUserVo;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -15,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @EqualsAndHashCode(of = "id", callSuper = false)
 @Table(name = "account")
-public class Account {
+public class Account  extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +32,7 @@ public class Account {
     @JoinColumn(name = "woori_user_id")
     private WooriUser wooriUser;
 
+    @Builder
     public Account(String number, String name, double balance) {
         this.number = number;
         this.name = name;
@@ -54,4 +52,16 @@ public class Account {
                 .balance(balance)
                 .build();
     }
+
+    public void update(double balance){
+        this.balance = balance;
+    }
+
+//    @OneToMany(mappedBy = "account_prgr_step_his")
+//    private List<AccountPrgrStepHis> accountPrgrStepHisList = new ArrayList<>();
+
+//    public List<AccountPrgrStepHis> toAccountPrgrStepHisList() {
+//        return accountPrgrStepHisList.stream().map(account -> AccountPrgrStepHis.toVo()).collect(Collectors.toList());
+//    }
+
 }

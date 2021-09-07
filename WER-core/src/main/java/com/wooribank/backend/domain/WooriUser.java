@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Entity
 @EqualsAndHashCode(of = "id", callSuper = false)
 @Table(name = "woori_user")
-public class WooriUser {
+public class WooriUser extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
