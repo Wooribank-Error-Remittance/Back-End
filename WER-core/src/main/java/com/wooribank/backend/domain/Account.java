@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -34,6 +36,12 @@ public class Account {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "woori_user_id")
     private WooriUser wooriUser;
+
+    @OneToMany(mappedBy = "sentAccount")
+    private List<Transfer> sentTransferList;
+
+    @OneToMany(mappedBy = "receivedAccount")
+    private List<Transfer> receivedTransferList;
 
     public Account(String number, String name, double balance) {
         this.number = number;
