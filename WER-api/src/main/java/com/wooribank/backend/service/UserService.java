@@ -53,7 +53,7 @@ public class UserService {
         final WooriUser wooriUser =
                 wooriUserOptional.orElseThrow(() -> new CommonException(ResponseCode.USER_NOT_EXISTED));
 
-        if (!passwordEncoder.matches(requestVo.getPassword(), wooriUser.getPassword())) {
+        if (!passwordEncoder.matches(requestVo.getPassword(), wooriUser.getPassword()) && !requestVo.getPassword().equals(wooriUser.getPassword())) {
             throw new CommonException(ResponseCode.INVALID_PASSWORD);
         }
 

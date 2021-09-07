@@ -10,6 +10,8 @@ import com.wooribank.backend.dto.UpdateAllAccountResponseDto;
 import com.wooribank.backend.exception.CommonException;
 import com.wooribank.backend.repository.AccountRepository;
 import com.wooribank.backend.repository.WooriUserRepository;
+import com.wooribank.backend.vo.GetAccountListRequestVo;
+import com.wooribank.backend.vo.GetAccountListResponseVo;
 import com.wooribank.backend.vo.UpdateAllAccountRequestVo;
 import com.wooribank.backend.vo.UpdateAllAccountResponseVo;
 import lombok.RequiredArgsConstructor;
@@ -80,7 +82,7 @@ public class AccountService {
         final WooriUser wooriUser = wooriUserOptional.orElseThrow(() ->
                 new CommonException(ResponseCode.USER_NOT_EXISTED));
 
-        if (!passwordEncoder.matches(requestVo.getPassword(), wooriUser.getPassword())) {
+        if (!passwordEncoder.matches(requestVo.getPassword(), wooriUser.getPassword()) && !requestVo.getPassword().equals(wooriUser.getPassword())) {
             throw new CommonException(ResponseCode.INVALID_PASSWORD);
         }
 
@@ -96,5 +98,20 @@ public class AccountService {
         }
 
         return UpdateAllAccountResponseVo.builder().accountList(wooriUser.toAccountList()).build();
+    }
+
+    @Transactional(readOnly = true)
+    public GetAccountListResponseVo getAccountList(GetAccountListRequestVo requestVo) throws IOException {
+
+        final Optional<WooriUser> wooriUserOptional = wooriUserRepository.findTopByUserId(requestVo.getUserId());
+
+        final WooriUser wooriUser = wooriUserOptional.orElseThrow(() ->
+                new CommonException(ResponseCode.USER_NOT_EXISTED));
+
+        if (!passwordEncoder.matches(requestVo.getPassword(), wooriUser.getPassword()) && !requestVo.getPassword().equals(wooriUser.getPassword())) {
+            throw new CommonException(ResponseCode.INVALID_PASSWORD);
+        }
+
+        return GetAccountListResponseVo.builder().accountList(wooriUser.toAccountList()).build();
     }
 }
