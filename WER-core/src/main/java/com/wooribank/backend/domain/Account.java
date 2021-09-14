@@ -45,14 +45,15 @@ public class Account {
     @JoinColumn(name = "bank_id")
     private Bank bank;
 
-    public Account(String number, String name, double balance) {
+    public Account(String number, String name, double balance, WooriUser wooriUSer, Bank bank) {
         this.number = number;
         this.name = name;
         this.balance = balance;
+        this.wooriUser = wooriUSer;
+        this.bank = bank;
     }
 
     public void setUser(WooriUser wooriUser) {
-        this.wooriUser = wooriUser;
         wooriUser.getAccountList().add(this);
     }
 

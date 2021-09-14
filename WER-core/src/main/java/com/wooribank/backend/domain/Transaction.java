@@ -51,4 +51,15 @@ public class Transaction {
     @JoinColumn(name = "return_request_id")
     private ReturnRequest returnRequest;
 
+    public Transaction(LocalDateTime timeOfOccurrence, String senderName, String receiverName, String sendingMethod,
+                       String receivingMethod, double amount, Account sentAccount, Account receivedAccount) {
+        this.timeOfOccurrence = timeOfOccurrence;
+        this.senderName = senderName;
+        this.receiverName = receiverName;
+        this.sendingMethod = sendingMethod;
+        this.receivingMethod = receivingMethod;
+        this.amount = amount;
+        this.sentAccount = sentAccount;
+        this.receivedAccount = receivedAccount;
+    }
 }

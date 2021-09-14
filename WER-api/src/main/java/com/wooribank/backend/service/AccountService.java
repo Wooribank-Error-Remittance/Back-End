@@ -4,11 +4,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.wooribank.backend.constant.ResponseCode;
 import com.wooribank.backend.domain.Account;
+import com.wooribank.backend.domain.Bank;
 import com.wooribank.backend.domain.WooriUser;
 import com.wooribank.backend.dto.LoadAccountResponseDto.LoadAccountDataBody;
 import com.wooribank.backend.dto.UpdateAllAccountResponseDto;
 import com.wooribank.backend.exception.CommonException;
 import com.wooribank.backend.repository.AccountRepository;
+import com.wooribank.backend.repository.BankRepository;
 import com.wooribank.backend.repository.WooriUserRepository;
 import com.wooribank.backend.vo.GetAccountListRequestVo;
 import com.wooribank.backend.vo.GetAccountListResponseVo;
@@ -35,6 +37,7 @@ import java.util.Optional;
 public class AccountService {
     private final WooriUserRepository wooriUserRepository;
     private final AccountRepository accountRepository;
+    private final BankRepository bankRepository;
     private final RestTemplate restTemplate;
     private final PasswordEncoder passwordEncoder;
 
@@ -82,19 +85,25 @@ public class AccountService {
         final WooriUser wooriUser = wooriUserOptional.orElseThrow(() ->
                 new CommonException(ResponseCode.USER_NOT_EXISTED));
 
-        if (!passwordEncoder.matches(requestVo.getPassword(), wooriUser.getPassword()) && !requestVo.getPassword().equals(wooriUser.getPassword())) {
+        if (!passwordEncoder.matches(requestVo.getPassword(), wooriUser.getPassword())) {
             throw new CommonException(ResponseCode.INVALID_PASSWORD);
         }
+
+        final Optional<Bank> wooriBankOptional = bankRepository.findTopByName("우리은행");
+
+        final Bank wooriBank = wooriBankOptional.orElseThrow(() ->
+                new CommonException(ResponseCode.BANK_NOT_EXISTED));
 
         for (int index = 0; index < loadAccountDataBody.getDataBody().getGRID_CNT(); index++) {
             final Account account = new Account(
                     loadAccountDataBody.getDataBody().getGRID().get(index).getACNO(),
                     loadAccountDataBody.getDataBody().getGRID().get(index).getPRD_NM(),
-                    loadAccountDataBody.getDataBody().getGRID().get(index).getPBOK_BAL());
-
-            accountRepository.save(account);
+                    loadAccountDataBody.getDataBody().getGRID().get(index).getPBOK_BAL(),
+                    wooriUser, wooriBank);
 
             account.setUser(wooriUser);
+
+            accountRepository.save(account);
         }
 
         return UpdateAllAccountResponseVo.builder().accountList(wooriUser.toAccountList()).build();
