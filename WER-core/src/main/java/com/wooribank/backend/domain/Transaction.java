@@ -13,16 +13,28 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Entity
 @EqualsAndHashCode(of = "id", callSuper = false)
-@Table(name = "transfer")
-public class Transfer {
+@Table(name = "transaction")
+public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "transfer_id")
+    @Column(name = "transaction_id")
     private Long id;
 
     @Column(name = "time_of_occurrence")
     private LocalDateTime timeOfOccurrence;
+
+    @Column(name = "sender_name")
+    private String senderName;
+
+    @Column(name = "receiver_name")
+    private String receiverName;
+
+    @Column(name = "sending_method")
+    private String sendingMethod;
+
+    @Column(name = "receivingMethod")
+    private String receivingMethod;
 
     @Column(name = "amount")
     private double amount;
@@ -35,7 +47,7 @@ public class Transfer {
     @JoinColumn(name = "received_account_id")
     private Account receivedAccount;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "return_request_id")
     private ReturnRequest returnRequest;
 

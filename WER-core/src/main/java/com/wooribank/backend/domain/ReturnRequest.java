@@ -23,6 +23,12 @@ public class ReturnRequest {
     @Column(name = "message")
     private String message;
 
+    @Column(name = "isConcluded")
+    private Boolean isConcluded;
+
+    @Column(name = "isReported")
+    private Boolean isReported;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sent_user_id")
     private WooriUser sentUser;
@@ -31,6 +37,14 @@ public class ReturnRequest {
     @JoinColumn(name = "received_user_id")
     private WooriUser receivedUser;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sent_account_id")
+    private Account sentAccount;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "received_account_id")
+    private Account receivedAccount;
+
     @OneToOne(mappedBy = "returnRequest")
-    private Transfer transfer;
+    private Transaction transaction;
 }

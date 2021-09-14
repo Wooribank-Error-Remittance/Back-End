@@ -1,14 +1,12 @@
 package com.wooribank.backend.domain;
 
 import com.wooribank.backend.vo.AccountVo;
-import com.wooribank.backend.vo.WooriUserVo;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -38,10 +36,14 @@ public class Account {
     private WooriUser wooriUser;
 
     @OneToMany(mappedBy = "sentAccount")
-    private List<Transfer> sentTransferList;
+    private List<Transaction> sentTransactionHistory;
 
     @OneToMany(mappedBy = "receivedAccount")
-    private List<Transfer> receivedTransferList;
+    private List<Transaction> receivedTransactionHistory;
+
+    @OneToOne
+    @JoinColumn(name = "bank_id")
+    private Bank bank;
 
     public Account(String number, String name, double balance) {
         this.number = number;
