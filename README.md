@@ -10,7 +10,7 @@
 
 - Gradle **7.1.1**([gradle](https://github.com/brightest-ko/springboot-webservice/tree/master/gradle)/[wrapper](https://github.com/brightest-ko/springboot-webservice/tree/master/gradle/wrapper)/**gradle-wrapper.properties**)
 
-  - settings.gradel
+  - settings.grade
 
     ```
     rootProject.name = 'backend'
