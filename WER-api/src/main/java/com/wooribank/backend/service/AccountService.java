@@ -7,12 +7,10 @@ import com.wooribank.backend.domain.Account;
 import com.wooribank.backend.domain.Bank;
 import com.wooribank.backend.domain.WooriUser;
 import com.wooribank.backend.dto.LoadAccountResponseDto.LoadAccountDataBody;
-import com.wooribank.backend.dto.UpdateAllAccountResponseDto;
 import com.wooribank.backend.exception.CommonException;
 import com.wooribank.backend.repository.AccountRepository;
 import com.wooribank.backend.repository.BankRepository;
 import com.wooribank.backend.repository.WooriUserRepository;
-import com.wooribank.backend.vo.GetAccountListRequestVo;
 import com.wooribank.backend.vo.GetAccountListResponseVo;
 import com.wooribank.backend.vo.UpdateAllAccountRequestVo;
 import com.wooribank.backend.vo.UpdateAllAccountResponseVo;
@@ -110,14 +108,14 @@ public class AccountService {
     }
 
     @Transactional(readOnly = true)
-    public GetAccountListResponseVo getAccountList(GetAccountListRequestVo requestVo) throws IOException {
+    public GetAccountListResponseVo getAccountList(final String userId, final String password) throws IOException {
 
-        final Optional<WooriUser> wooriUserOptional = wooriUserRepository.findTopByUserId(requestVo.getUserId());
+        final Optional<WooriUser> wooriUserOptional = wooriUserRepository.findTopByUserId(userId);
 
         final WooriUser wooriUser = wooriUserOptional.orElseThrow(() ->
                 new CommonException(ResponseCode.USER_NOT_EXISTED));
 
-        if (!passwordEncoder.matches(requestVo.getPassword(), wooriUser.getPassword()) && !requestVo.getPassword().equals(wooriUser.getPassword())) {
+        if (!passwordEncoder.matches(password, wooriUser.getPassword())) {
             throw new CommonException(ResponseCode.INVALID_PASSWORD);
         }
 

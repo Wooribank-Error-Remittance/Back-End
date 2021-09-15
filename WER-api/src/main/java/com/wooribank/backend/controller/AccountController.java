@@ -5,10 +5,7 @@ import com.wooribank.backend.dto.*;
 import com.wooribank.backend.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -32,10 +29,10 @@ public class AccountController extends AppApiV1Controller {
 
     @GetMapping("/accounts")
     public CommonResponse<GetAccountListResponseDto> GetAccountList(
-            @RequestBody GetAccountListRequestDto requestDto) throws IOException {
+            @RequestParam final String userId, @RequestParam final String password) throws IOException {
 
         GetAccountListResponseDto responseDto = GetAccountListResponseDto.of(
-                accountService.getAccountList(requestDto.toVo()));
+                accountService.getAccountList(userId, password));
 
         return commonResponseMaker.makeSucceedCommonResponse(responseDto);
     }
