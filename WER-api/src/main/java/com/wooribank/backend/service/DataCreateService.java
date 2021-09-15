@@ -51,6 +51,17 @@ public class DataCreateService {
         Account account9 = new Account("1040540867890", "우리 Magic6 적금", 13000000, wooriUser2, bank1);
         Account account10 = new Account("1073048467890", "주택청약종합저축", 4900000, wooriUser2, bank1);
 
+        accountRepository.save(account1);
+        accountRepository.save(account2);
+        accountRepository.save(account3);
+        accountRepository.save(account4);
+        accountRepository.save(account5);
+        accountRepository.save(account6);
+        accountRepository.save(account7);
+        accountRepository.save(account8);
+        accountRepository.save(account9);
+        accountRepository.save(account10);
+
         return null;
     }
 
