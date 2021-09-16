@@ -1,6 +1,5 @@
 package com.wooribank.backend.dto;
 
-import com.wooribank.backend.vo.AccountVo;
 import com.wooribank.backend.vo.TransactionVo;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,7 +22,7 @@ public class TransactionDto {
     private double amount;
     private Long sentAccountId;
     private Long receivedAccountId;
-    private Boolean isreturnRequested;
+    private Boolean isReturnRequested;
 
     public static TransactionDto of(TransactionVo vo) {
         return builder()
@@ -37,7 +36,7 @@ public class TransactionDto {
                 .amount(vo.getAmount())
                 .sentAccountId(vo.getSentAccountId())
                 .receivedAccountId(vo.getReceivedAccountId())
-                .isreturnRequested(vo.getIsreturnRequested())
+                .isReturnRequested(vo.getIsreturnRequested())
                 .build();
     }
 
