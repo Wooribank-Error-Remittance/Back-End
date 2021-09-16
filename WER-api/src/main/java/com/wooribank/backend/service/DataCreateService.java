@@ -2,6 +2,7 @@ package com.wooribank.backend.service;
 
 import com.wooribank.backend.domain.Account;
 import com.wooribank.backend.domain.Bank;
+import com.wooribank.backend.domain.Transaction;
 import com.wooribank.backend.domain.WooriUser;
 import com.wooribank.backend.repository.*;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
 
 @Slf4j
 @Service
@@ -61,6 +64,33 @@ public class DataCreateService {
         accountRepository.save(account8);
         accountRepository.save(account9);
         accountRepository.save(account10);
+
+        Transaction transaction1 = new Transaction(LocalDateTime.of(2021, 9, 15, 15, 47), "김우리", "김도둑", "FBS출금", "FBS입금", 150000, account1, account6);
+        Transaction transaction2 = new Transaction(LocalDateTime.of(2021, 9, 11, 18, 11), "김도둑", "김우리", "FBS출금", "FBS입금", 200000, account6, account2);
+        Transaction transaction3 = new Transaction(LocalDateTime.of(2021, 8, 10, 8, 32), "김우리", "김도둑", "FBS출금", "FBS입금", 3000, account1, account6);
+        Transaction transaction4 = new Transaction(LocalDateTime.of(2021, 8, 14, 10, 19), "김도둑", "김우리", "FBS출금", "FBS입금", 2000, account6, account1);
+        Transaction transaction5 = new Transaction(LocalDateTime.of(2021, 9, 1, 4, 41), "김우리", "김도둑", "FBS출금", "FBS입금", 33000, account1, account6);
+        Transaction transaction6 = new Transaction(LocalDateTime.of(2021, 9, 4, 7, 10), "김도둑", "김우리", "FBS출금", "FBS입금", 91000, account6, account1);
+        Transaction transaction7 = new Transaction(LocalDateTime.of(2021, 9, 15, 15, 47), "김우리", "김도둑", "FBS출금", "FBS입금", 150000, account2, account7);
+        Transaction transaction8 = new Transaction(LocalDateTime.of(2021, 9, 11, 18, 11), "김도둑", "김우리", "FBS출금", "FBS입금", 200000, account7, account2);
+        Transaction transaction9 = new Transaction(LocalDateTime.of(2021, 8, 10, 8, 32), "김우리", "김도둑", "FBS출금", "FBS입금", 3000, account2, account7);
+        Transaction transaction10 = new Transaction(LocalDateTime.of(2021, 8, 14, 10, 19), "김도둑", "김우리", "FBS출금", "FBS입금", 2000, account7, account2);
+        Transaction transaction11 = new Transaction(LocalDateTime.of(2021, 7, 1, 4, 41), "김우리", "김도둑", "FBS출금", "FBS입금", 33000, account2, account7);
+        Transaction transaction12 = new Transaction(LocalDateTime.of(2021, 7, 4, 7, 10), "김도둑", "김우리", "FBS출금", "FBS입금", 91000, account7, account2);
+
+        transactionRepository.save(transaction1);
+        transactionRepository.save(transaction2);
+        transactionRepository.save(transaction3);
+        transactionRepository.save(transaction4);
+        transactionRepository.save(transaction5);
+        transactionRepository.save(transaction6);
+        transactionRepository.save(transaction7);
+        transactionRepository.save(transaction8);
+        transactionRepository.save(transaction9);
+        transactionRepository.save(transaction10);
+        transactionRepository.save(transaction11);
+        transactionRepository.save(transaction12);
+
 
         return null;
     }

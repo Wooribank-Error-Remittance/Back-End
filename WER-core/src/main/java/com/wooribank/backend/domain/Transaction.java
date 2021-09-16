@@ -1,5 +1,7 @@
 package com.wooribank.backend.domain;
 
+import com.wooribank.backend.vo.AccountVo;
+import com.wooribank.backend.vo.TransactionVo;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +9,10 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -61,5 +67,37 @@ public class Transaction {
         this.amount = amount;
         this.sentAccount = sentAccount;
         this.receivedAccount = receivedAccount;
+    }
+
+    public TransactionVo toVo(String infoTarget) {
+        return TransactionVo.builder()
+                .id(id)
+                .infoTarget(infoTarget)
+                .timeOfOccurrence(timeOfOccurrence)
+                .senderName(senderName)
+                .receiverName(receiverName)
+                .sendingMethod(sendingMethod)
+                .receivingMethod(receivingMethod)
+                .amount(amount)
+                .sentAccountId(sentAccount.getId())
+                .receivedAccountId(receivedAccount.getId())
+                .isreturnRequested(returnRequest != null)
+                .build();
+    }
+
+    public static List<TransactionVo> toVoList(List<Transaction> sentTransactionHistory, List<Transaction> receivedTransactionHistory) {
+
+        final List<TransactionVo> sentTransactionVoList = sentTransactionHistory.stream().map((transaction) -> transaction.toVo("sender")).collect(Collectors.toList());
+
+        final List<TransactionVo> receivedTransactionVoList = receivedTransactionHistory.stream().map((transaction) -> transaction.toVo("receiver")).collect(Collectors.toList());
+
+        List<TransactionVo> totalTransactionVoList = new ArrayList<>();
+
+        totalTransactionVoList.addAll(sentTransactionVoList);
+        totalTransactionVoList.addAll(receivedTransactionVoList);
+
+        totalTransactionVoList.sort(Comparator.comparing(TransactionVo::getTimeOfOccurrence));
+
+        return totalTransactionVoList;
     }
 }
