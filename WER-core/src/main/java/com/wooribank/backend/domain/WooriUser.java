@@ -40,6 +40,12 @@ public class WooriUser {
     @OneToMany(mappedBy = "wooriUser")
     private List<Account> accountList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "sentUser")
+    private List<ReturnRequest> sentReturnRequestList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "receivedUser")
+    private List<ReturnRequest> receivedReturnRequestList = new ArrayList<>();
+
     public WooriUser(String userId, String password, String name, String phoneNumber) {
         this.userId = userId;
         this.password = password;

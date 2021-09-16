@@ -1,12 +1,12 @@
 package com.wooribank.backend.repository;
 
-import com.wooribank.backend.domain.Account;
+import com.wooribank.backend.domain.Bank;
 import com.wooribank.backend.domain.WooriUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface AccountRepository extends JpaRepository<Account, Long> {
+public interface BankRepository extends JpaRepository<Bank, Long> {
 
-    Optional<Account> findTopById(long id);
+    Optional<Bank> findTopByName(String name);
 }
