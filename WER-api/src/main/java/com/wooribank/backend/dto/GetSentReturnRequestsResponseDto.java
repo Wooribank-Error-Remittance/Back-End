@@ -12,11 +12,11 @@ import java.util.stream.Collectors;
 @Getter
 @ToString
 public class GetSentReturnRequestsResponseDto {
-    private final List<ReturnRequestDto> sentReturnRequestList;
+    private final List<ReturnRequestDto> returnRequestList;
 
     public static GetSentReturnRequestsResponseDto of(GetSentReturnRequestsResponseVo vo){
         return builder()
-                .sentReturnRequestList(
+                .returnRequestList(
                         vo.getSentReturnRequestList()
                                 .stream()
                                 .map(returnRequestVo -> ReturnRequestDto.of(returnRequestVo))

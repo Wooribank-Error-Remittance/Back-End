@@ -43,7 +43,7 @@ public class ReturnRequestService {
                 new CommonException(ResponseCode.TRANSACTION_NOT_EXISTED));
 
         final ReturnRequest returnRequest = new ReturnRequest(requestVo.getMessage(), false, false,
-                transaction.getReturnRequest().getSentUser(), transaction.getReturnRequest().getReceivedUser(),
+                transaction.getSentAccount().getWooriUser(), transaction.getReceivedAccount().getWooriUser(),
                 transaction.getSentAccount(), transaction.getReceivedAccount(), transaction);
 
         returnRequestRepository.save(returnRequest);
