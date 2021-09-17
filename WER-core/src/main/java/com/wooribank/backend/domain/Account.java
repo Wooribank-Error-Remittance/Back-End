@@ -66,4 +66,12 @@ public class Account {
                 .balance(balance)
                 .build();
     }
+
+    public void deposit(double amount) {
+        this.balance+=amount;
+    }
+
+    public void withdraw(double amount) {
+        this.balance-=amount;
+    }
 }

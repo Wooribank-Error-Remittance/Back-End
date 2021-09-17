@@ -91,7 +91,6 @@ public class DataCreateService {
         transactionRepository.save(transaction11);
         transactionRepository.save(transaction12);
 
-
         return null;
     }
 

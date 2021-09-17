@@ -47,4 +47,13 @@ public class ReturnRequestController extends AppApiV1Controller {
         return commonResponseMaker.makeSucceedCommonResponse(responseDto);
     }
 
+    @PostMapping("/return_requests/accept")
+    public CommonResponse<Void> acceptReturnRequest(
+            @RequestParam final long returnRequestId) throws IOException {
+
+        returnRequestService.acceptReturnRequest(returnRequestId);
+
+        return commonResponseMaker.makeEmptyInfoCommonResponse(ResponseCode.SUCCESS);
+    }
+
 }

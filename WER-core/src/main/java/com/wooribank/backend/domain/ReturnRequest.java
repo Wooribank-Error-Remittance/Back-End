@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Entity
 @EqualsAndHashCode(of = "id", callSuper = false)
 @Table(name = "return_request")
-public class ReturnRequest extends AbstractAuditingEntity{
+public class ReturnRequest extends AbstractAuditingEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -88,5 +88,11 @@ public class ReturnRequest extends AbstractAuditingEntity{
                 returnRequests.stream().map((returnRequest) -> returnRequest.toVo()).collect(Collectors.toList());
 
         return returnRequestVoList;
+    }
+
+    public void accept() {
+        this.isConcluded = true;
+        this.sentAccount.deposit(this.transaction.getAmount());
+        this.receivedAccount.withdraw(this.transaction.getAmount());
     }
 }

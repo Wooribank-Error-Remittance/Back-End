@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -81,5 +82,25 @@ public class ReturnRequestService {
         final List<ReturnRequestVo> returnRequestVoList = ReturnRequest.toVoList(sentReturnRequests);
 
         return GetSentReturnRequestsResponseVo.builder().sentReturnRequestList(returnRequestVoList).build();
+    }
+
+    @Transactional
+    public Void acceptReturnRequest(final Long returnRequestId) throws IOException {
+
+        final Optional<ReturnRequest> returnRequestOptional = returnRequestRepository.findTopById(returnRequestId);
+
+        final ReturnRequest returnRequest = returnRequestOptional.orElseThrow(() ->
+                new CommonException(ResponseCode.RETURN_REQUEST_NOT_EXISTED));
+
+        returnRequest.accept();
+
+        final Transaction transaction = new Transaction(LocalDateTime.now(),
+                returnRequest.getTransaction().getReceiverName(), returnRequest.getTransaction().getSenderName(),
+                "착오송금반환", "착오송금반환", returnRequest.getTransaction().getAmount(),
+                returnRequest.getReceivedAccount(), returnRequest.getSentAccount());
+
+        transactionRepository.save(transaction);
+
+        return null;
     }
 }

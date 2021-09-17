@@ -10,6 +10,8 @@ import java.util.Optional;
 
 public interface ReturnRequestRepository extends JpaRepository<ReturnRequest, Long> {
 
+    Optional<ReturnRequest> findTopById(Long id);
+
     List<ReturnRequest> findAllBySentUserOrderByCreatedAt(WooriUser sentUser);
 
     List<ReturnRequest> findAllByReceivedUserOrderByCreatedAt(WooriUser receivedUser);
