@@ -1,11 +1,17 @@
 package com.wooribank.backend.domain;
 
+import com.wooribank.backend.vo.ReturnRequestVo;
+import com.wooribank.backend.vo.TransactionVo;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -13,7 +19,7 @@ import javax.persistence.*;
 @Entity
 @EqualsAndHashCode(of = "id", callSuper = false)
 @Table(name = "return_request")
-public class ReturnRequest {
+public class ReturnRequest extends AbstractAuditingEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,4 +53,38 @@ public class ReturnRequest {
 
     @OneToOne(mappedBy = "returnRequest")
     private Transaction transaction;
+
+    public ReturnRequest(String message, Boolean isConcluded, Boolean isReported, WooriUser sentUser,
+                         WooriUser receivedUser, Account sentAccount, Account receivedAccount, Transaction transaction) {
+        this.message = message;
+        this.isConcluded = isConcluded;
+        this.isReported = isReported;
+        this.sentUser = sentUser;
+        this.receivedUser = receivedUser;
+        this.sentAccount = sentAccount;
+        this.receivedAccount = receivedAccount;
+        this.transaction = transaction;
+    }
+
+    public ReturnRequestVo toVo() {
+        return ReturnRequestVo.builder()
+                .id(id)
+                .sentUserName(sentUser.getName())
+                .sentAccountNumber(sentAccount.getNumber())
+                .receivedUserName(receivedUser.getName())
+                .receivedAccountNumber(receivedAccount.getNumber())
+                .transactionTime(transaction.getTimeOfOccurrence())
+                .isReported(isReported)
+                .isConcluded(isConcluded)
+                .amount(transaction.getAmount())
+                .build();
+    }
+
+    public static List<ReturnRequestVo> toVoList(List<ReturnRequest> returnRequests) {
+
+        final List<ReturnRequestVo> returnRequestVoList =
+                returnRequests.stream().map((returnRequest) -> returnRequest.toVo()).collect(Collectors.toList());
+
+        return returnRequestVoList;
+    }
 }

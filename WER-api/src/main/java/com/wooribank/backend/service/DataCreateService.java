@@ -72,11 +72,11 @@ public class DataCreateService {
         Transaction transaction5 = new Transaction(LocalDateTime.of(2021, 9, 1, 4, 41), "김우리", "김도둑", "FBS출금", "FBS입금", 33000, account1, account6);
         Transaction transaction6 = new Transaction(LocalDateTime.of(2021, 9, 4, 7, 10), "김도둑", "김우리", "FBS출금", "FBS입금", 91000, account6, account1);
         Transaction transaction7 = new Transaction(LocalDateTime.of(2021, 9, 15, 15, 47), "김우리", "김도둑", "FBS출금", "FBS입금", 150000, account2, account7);
-        Transaction transaction8 = new Transaction(LocalDateTime.of(2021, 9, 11, 18, 11), "김도둑", "김우리", "FBS출금", "FBS입금", 200000, account7, account2);
-        Transaction transaction9 = new Transaction(LocalDateTime.of(2021, 8, 10, 8, 32), "김우리", "김도둑", "FBS출금", "FBS입금", 3000, account2, account7);
-        Transaction transaction10 = new Transaction(LocalDateTime.of(2021, 8, 14, 10, 19), "김도둑", "김우리", "FBS출금", "FBS입금", 2000, account7, account2);
-        Transaction transaction11 = new Transaction(LocalDateTime.of(2021, 7, 1, 4, 41), "김우리", "김도둑", "FBS출금", "FBS입금", 33000, account2, account7);
-        Transaction transaction12 = new Transaction(LocalDateTime.of(2021, 7, 4, 7, 10), "김도둑", "김우리", "FBS출금", "FBS입금", 91000, account7, account2);
+        Transaction transaction8 = new Transaction(LocalDateTime.of(2021, 9, 24, 18, 10), "김도둑", "김우리", "FBS출금", "FBS입금", 394000, account7, account2);
+        Transaction transaction9 = new Transaction(LocalDateTime.of(2021, 8, 17, 8, 32), "김우리", "김도둑", "FBS출금", "FBS입금", 3000, account2, account7);
+        Transaction transaction10 = new Transaction(LocalDateTime.of(2021, 8, 25, 10, 19), "김도둑", "김우리", "FBS출금", "FBS입금", 2000, account7, account2);
+        Transaction transaction11 = new Transaction(LocalDateTime.of(2021, 7, 3, 4, 41), "김우리", "김도둑", "FBS출금", "FBS입금", 33000, account2, account7);
+        Transaction transaction12 = new Transaction(LocalDateTime.of(2021, 7, 6, 7, 10), "김도둑", "김우리", "FBS출금", "FBS입금", 91000, account7, account2);
 
         transactionRepository.save(transaction1);
         transactionRepository.save(transaction2);

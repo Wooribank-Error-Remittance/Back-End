@@ -60,6 +60,7 @@ public class Account {
     public AccountVo toVo() {
         return AccountVo.builder()
                 .id(id)
+                .bank(bank.getName())
                 .number(number)
                 .name(name)
                 .balance(balance)

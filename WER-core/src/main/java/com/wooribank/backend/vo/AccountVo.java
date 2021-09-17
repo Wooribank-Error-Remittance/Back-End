@@ -9,6 +9,7 @@ import lombok.ToString;
 @ToString
 public class AccountVo {
     private Long id;
+    private String bank;
     private String number;
     private String name;
     private double balance;

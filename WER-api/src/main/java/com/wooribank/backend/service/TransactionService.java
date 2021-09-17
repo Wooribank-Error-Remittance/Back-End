@@ -58,7 +58,7 @@ public class TransactionService {
                 account, LocalDateTime.of(year, month, 1, 0, 0, 0, 0),
                 LocalDateTime.of(year, month+1, 1, 0, 0, 0, 0));
 
-        List<TransactionVo> transactionVoList = Transaction.toVoList(sentTransactionHistoryPerMonth, receivedTransactionHistoryPerMonth);
+        final List<TransactionVo> transactionVoList = Transaction.toVoList(sentTransactionHistoryPerMonth, receivedTransactionHistoryPerMonth);
         return GetTransactionListResponseVo.builder().transactionList(transactionVoList).build();
     }
 }
