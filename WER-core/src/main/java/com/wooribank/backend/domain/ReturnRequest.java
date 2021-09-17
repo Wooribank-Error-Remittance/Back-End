@@ -74,6 +74,7 @@ public class ReturnRequest extends AbstractAuditingEntity{
                 .sentAccountNumber(sentAccount.getNumber())
                 .receivedUserName(receivedUser.getName())
                 .receivedAccountNumber(receivedAccount.getNumber())
+                .message(message)
                 .transactionTime(transaction.getTimeOfOccurrence())
                 .isReported(isReported)
                 .isConcluded(isConcluded)

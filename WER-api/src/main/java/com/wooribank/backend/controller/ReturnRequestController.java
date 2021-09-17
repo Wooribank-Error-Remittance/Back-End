@@ -29,20 +29,20 @@ public class ReturnRequestController extends AppApiV1Controller {
 
     @GetMapping("/return_requests/sending")
     public CommonResponse<GetSentReturnRequestsResponseDto> getSentReturnRequest(
-            @RequestParam final long id) throws IOException {
+            @RequestParam final String userId) throws IOException {
 
         final GetSentReturnRequestsResponseDto responseDto = GetSentReturnRequestsResponseDto.of(
-                returnRequestService.getSentReturnRequest(id));
+                returnRequestService.getSentReturnRequest(userId));
 
         return commonResponseMaker.makeSucceedCommonResponse(responseDto);
     }
 
     @GetMapping("/return_requests/receiving")
     public CommonResponse<GetReceivedReturnRequestsResponseDto> getReceivedReturnRequest(
-            @RequestParam final long id) throws IOException {
+            @RequestParam final String userId) throws IOException {
 
         final GetReceivedReturnRequestsResponseDto responseDto = GetReceivedReturnRequestsResponseDto.of(
-                returnRequestService.getReceivedReturnRequest(id));
+                returnRequestService.getReceivedReturnRequest(userId));
 
         return commonResponseMaker.makeSucceedCommonResponse(responseDto);
     }

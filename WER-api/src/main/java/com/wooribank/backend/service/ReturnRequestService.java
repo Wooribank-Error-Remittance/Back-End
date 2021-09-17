@@ -52,9 +52,9 @@ public class ReturnRequestService {
     }
 
     @Transactional(readOnly = true)
-    public GetReceivedReturnRequestsResponseVo getReceivedReturnRequest(final long id) {
+    public GetReceivedReturnRequestsResponseVo getReceivedReturnRequest(final String userId) {
         final Optional<WooriUser> wooriUserOptional =
-                wooriUserRepository.findTopById(id);
+                wooriUserRepository.findTopByUserId(userId);
 
         final WooriUser wooriUser =
                 wooriUserOptional.orElseThrow(() -> new CommonException(ResponseCode.USER_NOT_EXISTED));
@@ -68,9 +68,9 @@ public class ReturnRequestService {
     }
 
     @Transactional(readOnly = true)
-    public GetSentReturnRequestsResponseVo getSentReturnRequest(final long id) {
+    public GetSentReturnRequestsResponseVo getSentReturnRequest(final String userId) {
         final Optional<WooriUser> wooriUserOptional =
-                wooriUserRepository.findTopById(id);
+                wooriUserRepository.findTopByUserId(userId);
 
         final WooriUser wooriUser =
                 wooriUserOptional.orElseThrow(() -> new CommonException(ResponseCode.USER_NOT_EXISTED));

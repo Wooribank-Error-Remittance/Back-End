@@ -7,7 +7,5 @@ import java.util.Optional;
 
 public interface WooriUserRepository extends JpaRepository<WooriUser, Long> {
 
-    Optional<WooriUser> findTopById(Long id);
-
     Optional<WooriUser> findTopByUserId(String userId);
 }

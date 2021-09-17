@@ -18,6 +18,7 @@ public class ReturnRequestDto {
     private String sentAccountNumber;
     private String receivedUserName;
     private String receivedAccountNumber;
+    private String message;
     private LocalDateTime transactionTime;
     private boolean isReported;
     private boolean isConcluded;
@@ -30,6 +31,7 @@ public class ReturnRequestDto {
                 .sentAccountNumber(vo.getSentAccountNumber())
                 .receivedUserName(vo.getReceivedUserName())
                 .receivedAccountNumber(vo.getReceivedAccountNumber())
+                .message(vo.getMessage())
                 .transactionTime(vo.getTransactionTime())
                 .isReported(vo.isReported())
                 .isConcluded(vo.isConcluded())
