@@ -33,6 +33,7 @@ public class ReturnRequestDto {
                 .transactionTime(vo.getTransactionTime())
                 .isReported(vo.isReported())
                 .isConcluded(vo.isConcluded())
+                .amount(vo.getAmount())
                 .build();
     }
 }

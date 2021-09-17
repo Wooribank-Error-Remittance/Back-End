@@ -53,8 +53,7 @@ public class Transaction {
     @JoinColumn(name = "received_account_id")
     private Account receivedAccount;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "return_request_id")
+    @OneToOne(mappedBy = "transaction")
     private ReturnRequest returnRequest;
 
     public Transaction(LocalDateTime timeOfOccurrence, String senderName, String receiverName, String sendingMethod,

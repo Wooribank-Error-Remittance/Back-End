@@ -51,7 +51,8 @@ public class ReturnRequest extends AbstractAuditingEntity{
     @JoinColumn(name = "received_account_id")
     private Account receivedAccount;
 
-    @OneToOne(mappedBy = "returnRequest")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "transaction_id")
     private Transaction transaction;
 
     public ReturnRequest(String message, Boolean isConcluded, Boolean isReported, WooriUser sentUser,
