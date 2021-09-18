@@ -60,9 +60,18 @@ public class Account {
     public AccountVo toVo() {
         return AccountVo.builder()
                 .id(id)
+                .bank(bank.getName())
                 .number(number)
                 .name(name)
                 .balance(balance)
                 .build();
+    }
+
+    public void deposit(double amount) {
+        this.balance+=amount;
+    }
+
+    public void withdraw(double amount) {
+        this.balance-=amount;
     }
 }

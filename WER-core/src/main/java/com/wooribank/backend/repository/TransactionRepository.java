@@ -14,4 +14,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
     List<Transaction> findAllByReceivedAccountAndTimeOfOccurrenceBetweenOrderByTimeOfOccurrenceAsc(
             Account receivedAccount, LocalDateTime startTimeOfOccurrence, LocalDateTime endTimeOfOccurrence);
+
+    Optional<Transaction> findTopById(Long id);
 }
