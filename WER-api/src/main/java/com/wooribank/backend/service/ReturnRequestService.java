@@ -1,7 +1,6 @@
 package com.wooribank.backend.service;
 
 import com.wooribank.backend.constant.ResponseCode;
-import com.wooribank.backend.domain.Bank;
 import com.wooribank.backend.domain.ReturnRequest;
 import com.wooribank.backend.domain.Transaction;
 import com.wooribank.backend.domain.WooriUser;
@@ -13,10 +12,8 @@ import com.wooribank.backend.vo.MakeReturnRequestRequestVo;
 import com.wooribank.backend.vo.ReturnRequestVo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -27,13 +24,10 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ReturnRequestService {
+    private final FCMService fcmService;
     private final WooriUserRepository wooriUserRepository;
-    private final AccountRepository accountRepository;
-    private final BankRepository bankRepository;
     private final TransactionRepository transactionRepository;
     private final ReturnRequestRepository returnRequestRepository;
-    private final RestTemplate restTemplate;
-    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public Void makeReturnRequest(final MakeReturnRequestRequestVo requestVo) throws IOException {
@@ -48,6 +42,12 @@ public class ReturnRequestService {
                 transaction.getSentAccount(), transaction.getReceivedAccount(), transaction);
 
         returnRequestRepository.save(returnRequest);
+
+        final String receiverToken = returnRequest.getReceivedUser().getFcmToken().getToken();
+
+        if (receiverToken!=null) {
+            fcmService.sendMessageTo(receiverToken,"착오송금액 반환 요청 알림", transaction.getSenderName()+"님이 착오송금액 반환을 요청하셨습니다.");
+        }
 
         return null;
     }
