@@ -56,4 +56,13 @@ public class ReturnRequestController extends AppApiV1Controller {
         return commonResponseMaker.makeEmptyInfoCommonResponse(ResponseCode.SUCCESS);
     }
 
+    @PostMapping("/return_requests/report")
+    public CommonResponse<Void> reportReturnRequest(
+            @RequestParam final Long returnRequestId) throws IOException {
+
+        returnRequestService.reportReturnRequest(returnRequestId);
+
+        return commonResponseMaker.makeEmptyInfoCommonResponse(ResponseCode.SUCCESS);
+    }
+
 }
