@@ -3,12 +3,10 @@ package com.wooribank.backend.domain;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @Entity
 @EqualsAndHashCode(of = "id", callSuper = false)
@@ -27,7 +25,8 @@ public class FCMToken {
     @JoinColumn(name = "woori_user_id")
     WooriUser wooriUser;
 
-    public FCMToken(String token) {
+    public FCMToken(String token, WooriUser wooriUser) {
         this.token = token;
+        this.wooriUser =  wooriUser;
     }
 }
