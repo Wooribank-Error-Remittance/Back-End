@@ -46,6 +46,9 @@ public class WooriUser {
     @OneToMany(mappedBy = "receivedUser")
     private List<ReturnRequest> receivedReturnRequestList = new ArrayList<>();
 
+    @OneToOne(mappedBy = "wooriUser", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private FCMToken fcmToken;
+
     public WooriUser(String userId, String password, String name, String phoneNumber) {
         this.userId = userId;
         this.password = password;
