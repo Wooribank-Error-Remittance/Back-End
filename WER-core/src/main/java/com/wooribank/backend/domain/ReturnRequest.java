@@ -95,4 +95,8 @@ public class ReturnRequest extends AbstractAuditingEntity {
         this.sentAccount.deposit(this.transaction.getAmount());
         this.receivedAccount.withdraw(this.transaction.getAmount());
     }
+
+    public void report() {
+        this.isReported = true;
+    }
 }
