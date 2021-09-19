@@ -1,6 +1,7 @@
 package com.wooribank.backend.service;
 
 import com.wooribank.backend.constant.ResponseCode;
+import com.wooribank.backend.domain.FCMToken;
 import com.wooribank.backend.domain.WooriUser;
 import com.wooribank.backend.exception.CommonException;
 import com.wooribank.backend.repository.WooriUserRepository;
@@ -44,7 +45,7 @@ public class UserService {
         return wooriUser.toVo();
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public WooriUserVo signIn(SignInRequestVo requestVo) {
 
         final Optional<WooriUser> wooriUserOptional =
@@ -56,6 +57,9 @@ public class UserService {
         if (!passwordEncoder.matches(requestVo.getPassword(), wooriUser.getPassword())) {
             throw new CommonException(ResponseCode.INVALID_PASSWORD);
         }
+
+        final FCMToken fcmToken = new FCMToken(requestVo.getFcmToken(),wooriUser);
+        wooriUser.registerToken(fcmToken);
 
         return wooriUser.toVo();
     }

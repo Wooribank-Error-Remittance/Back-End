@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @Entity
 @EqualsAndHashCode(of = "id", callSuper = false)
@@ -63,6 +62,10 @@ public class WooriUser {
                 .userId(userId)
                 .phoneNumber(phoneNumber)
                 .build();
+    }
+
+    public void registerToken(FCMToken fcmToken) {
+        this.fcmToken=fcmToken;
     }
 
     public List<AccountVo> toAccountList() {

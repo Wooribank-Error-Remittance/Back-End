@@ -11,11 +11,13 @@ import lombok.ToString;
 public class SignInRequestDto {
     private final String userId;
     private final String password;
+    private final String fcmToken;
 
     public SignInRequestVo toVo() {
         return SignInRequestVo.builder()
                 .userId(userId)
                 .password(password)
+                .fcmToken(fcmToken)
                 .build();
     }
 }

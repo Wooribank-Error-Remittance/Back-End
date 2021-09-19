@@ -10,4 +10,5 @@ import lombok.ToString;
 public class SignInRequestVo {
     private final String userId;
     private final String password;
+    private final String fcmToken;
 }
