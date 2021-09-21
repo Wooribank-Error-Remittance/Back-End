@@ -37,21 +37,21 @@ public class ReturnRequestService {
         final Transaction transaction = transactionOptional.orElseThrow(() ->
                 new CommonException(ResponseCode.TRANSACTION_NOT_EXISTED));
 
+        if (transaction.isRequested()) {
+            throw new CommonException(ResponseCode.RETURN_REQUEST_ALREADY_EXISTED);
+        }
+
         final ReturnRequest returnRequest = new ReturnRequest(requestVo.getMessage(), false, false,
                 transaction.getSentAccount().getWooriUser(), transaction.getReceivedAccount().getWooriUser(),
                 transaction.getSentAccount(), transaction.getReceivedAccount(), transaction);
 
         returnRequestRepository.save(returnRequest);
 
-        try {
-            final String receiverToken = returnRequest.getReceivedUser().getFcmToken().getToken();
-            if (receiverToken != null) {
-                fcmService.sendMessageTo(receiverToken, "착오송금액 반환 요청 알림", transaction.getSenderName() + "님이 착오송금액 반환을 요청하셨습니다.");
-            }
-        } catch (NullPointerException e) {
-        } finally {
-            return null;
+        if (returnRequest.getReceivedUser().hasToken()) {
+            fcmService.sendMessageTo(returnRequest.getReceivedUser().getFcmToken().getToken(), "착오송금액 반환 요청 알림", transaction.getSenderName() + "님이 착오송금액 반환을 요청하셨습니다.");
         }
+
+        return null;
     }
 
     @Transactional(readOnly = true)

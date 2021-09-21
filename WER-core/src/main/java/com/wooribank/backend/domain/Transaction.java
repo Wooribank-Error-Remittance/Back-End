@@ -68,6 +68,10 @@ public class Transaction {
         this.receivedAccount = receivedAccount;
     }
 
+    public boolean isRequested() {
+        return returnRequest!=null;
+    }
+
     public TransactionVo toVo(String infoTarget) {
         return TransactionVo.builder()
                 .id(id)
@@ -80,7 +84,7 @@ public class Transaction {
                 .amount(amount)
                 .sentAccountId(sentAccount.getId())
                 .receivedAccountId(receivedAccount.getId())
-                .isreturnRequested(returnRequest != null)
+                .isreturnRequested(isRequested())
                 .build();
     }
 
