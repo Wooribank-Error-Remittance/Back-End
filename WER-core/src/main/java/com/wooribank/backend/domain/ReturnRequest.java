@@ -1,5 +1,7 @@
 package com.wooribank.backend.domain;
 
+import com.wooribank.backend.constant.ResponseCode;
+import com.wooribank.backend.exception.CommonException;
 import com.wooribank.backend.vo.ReturnRequestVo;
 import com.wooribank.backend.vo.TransactionVo;
 import lombok.EqualsAndHashCode;
@@ -91,6 +93,9 @@ public class ReturnRequest extends AbstractAuditingEntity {
     }
 
     public void accept() {
+        if (isConcluded) {
+            throw new CommonException(ResponseCode.RETURN_REQUEST_NOT_EXISTED);
+        }
         this.isConcluded = true;
         this.sentAccount.deposit(this.transaction.getAmount());
         this.receivedAccount.withdraw(this.transaction.getAmount());
