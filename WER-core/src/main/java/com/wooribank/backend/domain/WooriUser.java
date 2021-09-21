@@ -55,6 +55,10 @@ public class WooriUser {
         this.phoneNumber = phoneNumber;
     }
 
+    public Boolean hasToken() {
+        return fcmToken!=null;
+    }
+
     public WooriUserVo toVo() {
         return WooriUserVo.builder()
                 .wooriUserId(id)
