@@ -2,7 +2,12 @@
 
 편리한 착오송금 반환 서비스(2021.09.01 ~ 진행중)
 
-### ✍Skill
+## 프로젝트 구조
+
+![image](https://user-images.githubusercontent.com/71204049/134851935-f6c8e38c-5cff-468f-9dcc-b5f1e396b75a.png)
+
+
+## ✍Skill
 
 - Java (openJDK16 Local 설정)
 
@@ -59,7 +64,7 @@
 
     
 
-### ✍Entity (Domain)
+## ✍Entity (Domain)
 
 - Account
   
@@ -99,7 +104,7 @@
 
   
 
-### ✍How To Develop
+## ✍How To Develop
 
 - 비밀번호 암호화 사용
 
