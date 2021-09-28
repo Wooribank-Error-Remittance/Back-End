@@ -4,7 +4,7 @@
 
 ## 프로젝트 구조
 
-![image](https://user-images.githubusercontent.com/71204049/134851935-f6c8e38c-5cff-468f-9dcc-b5f1e396b75a.png)
+![image](https://user-images.githubusercontent.com/71204049/135059863-5a7fe359-b1e4-4f46-ae53-86879bb62306.png)
 
 
 ## ✍Skill
