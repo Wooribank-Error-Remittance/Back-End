@@ -48,7 +48,16 @@ public class ReturnRequestService {
         returnRequestRepository.save(returnRequest);
 
         if (returnRequest.getReceivedUser().hasToken()) {
-            fcmService.sendMessageTo(returnRequest.getReceivedUser().getFcmToken().getToken(), "착오송금액 반환 요청 알림", transaction.getSenderName() + "님이 착오송금액 반환을 요청하셨습니다.");
+            try {
+                fcmService.sendMessageTo(returnRequest.getReceivedUser().getFcmToken().getToken(), "착오송금액 반환 요청 알림", transaction.getSenderName() + "님이 착오송금액 반환을 요청하셨습니다.");
+            } catch (Exception e){
+                //에러시 수행
+                e.printStackTrace(); //오류 출력(방법은 여러가지)
+                throw e; //최상위 클래스가 아니라면 무조건 던져주자
+            }finally{
+                //무조건 수행
+                return null;
+            }
         }
 
         return null;
