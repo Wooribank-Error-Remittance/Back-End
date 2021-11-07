@@ -31,6 +31,9 @@ public class ReturnRequest extends AbstractAuditingEntity {
     @Column(name = "message")
     private String message;
 
+    @Column(name = "reason")
+    private String reason;
+
     @Column(name = "isConcluded")
     private Boolean isConcluded;
 
@@ -57,9 +60,10 @@ public class ReturnRequest extends AbstractAuditingEntity {
     @JoinColumn(name = "transaction_id")
     private Transaction transaction;
 
-    public ReturnRequest(String message, Boolean isConcluded, Boolean isReported, WooriUser sentUser,
+    public ReturnRequest(String message,String reason, Boolean isConcluded, Boolean isReported, WooriUser sentUser,
                          WooriUser receivedUser, Account sentAccount, Account receivedAccount, Transaction transaction) {
         this.message = message;
+        this.reason = reason;
         this.isConcluded = isConcluded;
         this.isReported = isReported;
         this.sentUser = sentUser;
@@ -77,6 +81,7 @@ public class ReturnRequest extends AbstractAuditingEntity {
                 .receivedUserName(receivedUser.getName())
                 .receivedAccountNumber(receivedAccount.getNumber())
                 .message(message)
+                .reason(reason)
                 .transactionTime(transaction.getTimeOfOccurrence())
                 .isReported(isReported)
                 .isConcluded(isConcluded)

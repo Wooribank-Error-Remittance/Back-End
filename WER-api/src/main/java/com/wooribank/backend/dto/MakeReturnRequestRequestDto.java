@@ -12,11 +12,13 @@ import lombok.ToString;
 public class MakeReturnRequestRequestDto {
     private final long transactionId;
     private final String message;
+    private final String reason;
 
     public MakeReturnRequestRequestVo toVo() {
         return MakeReturnRequestRequestVo.builder()
                 .transactionId(transactionId)
                 .message(message)
+                .reason(reason)
                 .build();
     }
 }

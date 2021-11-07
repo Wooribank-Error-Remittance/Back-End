@@ -17,6 +17,7 @@ public class ReturnRequestVo {
     private String receivedUserName;
     private String receivedAccountNumber;
     private String message;
+    private String reason;
     private LocalDateTime transactionTime;
     private boolean isReported;
     private boolean isConcluded;

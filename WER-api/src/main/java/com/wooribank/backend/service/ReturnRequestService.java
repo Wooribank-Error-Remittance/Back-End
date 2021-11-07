@@ -41,7 +41,7 @@ public class ReturnRequestService {
             throw new CommonException(ResponseCode.RETURN_REQUEST_ALREADY_EXISTED);
         }
 
-        final ReturnRequest returnRequest = new ReturnRequest(requestVo.getMessage(), false, false,
+        final ReturnRequest returnRequest = new ReturnRequest(requestVo.getMessage(), requestVo.getReason(), false, false,
                 transaction.getSentAccount().getWooriUser(), transaction.getReceivedAccount().getWooriUser(),
                 transaction.getSentAccount(), transaction.getReceivedAccount(), transaction);
 

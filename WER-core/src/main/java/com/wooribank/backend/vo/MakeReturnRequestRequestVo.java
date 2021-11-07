@@ -10,4 +10,5 @@ import lombok.ToString;
 public class MakeReturnRequestRequestVo {
     private long transactionId;
     private String message;
+    private String reason;
 }
