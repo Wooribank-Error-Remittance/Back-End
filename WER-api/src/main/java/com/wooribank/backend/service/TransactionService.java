@@ -52,11 +52,11 @@ public class TransactionService {
 
         final List<Transaction> sentTransactionHistoryPerMonth = transactionRepository.findAllBySentAccountAndTimeOfOccurrenceBetweenOrderByTimeOfOccurrenceAsc(
                 account, LocalDateTime.of(year, month, 1, 0, 0, 0, 0),
-                LocalDateTime.of(year, month+1, 1, 0, 0, 0, 0));
+                LocalDateTime.of(year, month, 1, 0, 0, 0, 0).plusMonths(1));
 
         final List<Transaction> receivedTransactionHistoryPerMonth = transactionRepository.findAllByReceivedAccountAndTimeOfOccurrenceBetweenOrderByTimeOfOccurrenceAsc(
                 account, LocalDateTime.of(year, month, 1, 0, 0, 0, 0),
-                LocalDateTime.of(year, month+1, 1, 0, 0, 0, 0));
+                LocalDateTime.of(year, month, 1, 0, 0, 0, 0).plusMonths(1));
 
         final List<TransactionVo> transactionVoList = Transaction.toVoList(sentTransactionHistoryPerMonth, receivedTransactionHistoryPerMonth);
         return GetTransactionListResponseVo.builder().transactionList(transactionVoList).build();
